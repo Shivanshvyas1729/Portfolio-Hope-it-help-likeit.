@@ -254,6 +254,30 @@ projects:
     featured: true
     impact: "Automated ML pipeline with production-ready CI/CD deployment"
 
+ 
+  - id: 3
+    title: "🌦 Thunderstorm Forecasting System"
+    category:
+      - "Machine Learning"
+      - "Weather Prediction"
+      - "Python"
+    description: "Machine learning-based system for real-time thunderstorm prediction using atmospheric indices, featuring a FastAPI backend and interactive Streamlit interface."
+    media:
+      - type: "image"
+        url: "https://www.reconnectwithnature.org/getContentAsset/a2de823c-a1ae-491e-a47b-f373af403d4e/dfc3d011-8f63-43f6-9ed8-4b444333a1d0/Thunderstorm-lightning-strike-shutterstock-1.jpg?language=en-US"
+    tech:
+      - "Python"
+      - "Scikit-learn"
+      - "FastAPI"
+      - "Streamlit"
+      - "Pandas"
+      - "NumPy"
+      - "Imbalanced-learn"
+    github: "https://github.com/Shivanshvyas1729/Thunderstrom_forcast"
+    live: "https://thunderstromforcast.streamlit.app/"
+    featured: true
+    impact: "Real-time thunderstorm prediction with optimized ML model and interactive UI"
+
 # endregion
 
 # region EMAILJS
