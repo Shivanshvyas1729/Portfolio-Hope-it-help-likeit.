@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
 import { ArrowRight, ChevronDown } from "lucide-react";
-import profileImg from "@/assets/profile-placeholder.jpg";
+import defaultProfileImg from "@/assets/profile-placeholder.jpg";
 
 const Hero = () => {
   const { hero, personal, stats } = portfolioData;
@@ -94,16 +94,20 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="hidden md:block"
+          className={`hidden md:block ${personal.profileImage.position === 'left' ? 'order-first' : 'order-last'}`}
         >
           <div className="relative w-72 h-72 lg:w-80 lg:h-80">
             <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl animate-glow-pulse" />
             <img
-              src={profileImg}
+              src={
+                !personal.profileImage.value || personal.profileImage.value.includes('profile-placeholder')
+                  ? defaultProfileImg
+                  : personal.profileImage.value
+              }
               alt={personal.name}
               width={320}
               height={320}
-              className="relative rounded-2xl object-cover w-full h-full glow-border"
+              className="relative rounded-2xl object-cover w-full h-full glow-border shadow-[0_0_30px_rgba(59,130,246,0.2)]"
             />
           </div>
         </motion.div>

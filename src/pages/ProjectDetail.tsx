@@ -36,9 +36,13 @@ const ProjectDetail = () => {
           <div className={`grid gap-8 mb-8 ${hasMedia ? "md:grid-cols-[1fr,1fr]" : ""}`}>
             {/* Left: Project Info */}
             <div>
-              <span className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full font-medium">
-                {project.category}
-              </span>
+              <div className="flex flex-wrap gap-2">
+                {Array.isArray(project.category) && project.category.map((cat, i) => (
+                  <span key={i} className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full font-medium shadow-sm border border-primary/20">
+                    {cat.trim()}
+                  </span>
+                ))}
+              </div>
               <h1 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4">{project.title}</h1>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">{project.description}</p>
 

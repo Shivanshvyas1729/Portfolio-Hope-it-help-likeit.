@@ -17,9 +17,13 @@ const ProjectCard = ({ project, index }: Props) => (
     whileHover={{ y: -6 }}
     className="glass-card-hover p-6 flex flex-col h-full group"
   >
-    <span className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full self-start mb-3 font-medium">
-      {project.category}
-    </span>
+    <div className="flex flex-wrap gap-2 mb-3">
+      {Array.isArray(project.category) && project.category.map((cat, i) => (
+        <span key={i} className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full font-medium shadow-sm border border-primary/20">
+          {cat.trim()}
+        </span>
+      ))}
+    </div>
     <Link to={`/project/${project.id}`}>
       <h3 className="font-heading font-semibold text-foreground text-lg mb-2 group-hover:text-primary transition-colors">
         {project.title}

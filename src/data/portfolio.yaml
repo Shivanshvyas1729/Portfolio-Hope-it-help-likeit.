@@ -1,0 +1,137 @@
+home:
+  featuredProjectsCount: 6
+personal:
+  name: "Shivansh Vyas"
+  title: "Data Scientist | AI Engineer"
+  email: "shivanshvyas1729@example.com"
+  phone: "+91 6377099494"
+  linkedin: "https://linkedin.com/in/shivanshvyas"
+  github: "https://github.com/shivanshvyas"
+  location: "Bhilwara, Rajasthan, India"
+  profileImage:
+    type: "url"
+    value: "https://i.ibb.co/rKBnjv95/shivansh.jpg"
+    position: "right"
+hero:
+  headline:
+    - "Building Scalable"
+    - "AI Systems"
+    - "That Create"
+    - "Real Impact"
+  description: "I specialize in designing and deploying intelligent systems — from machine learning pipelines to generative AI applications — that solve complex, real-world problems at scale."
+  ctas:
+    - label: "View Projects"
+      link: "#projects"
+    - label: "Contact Me"
+      link: "#contact"
+stats:
+  projectsCount: 5
+  experienceCount: 1
+about:
+  description: "A final-year B.Tech Computer Science student at MLV Textile & Engineering College, Bhilwara. I enjoy the process of solving problems with clean, scalable solutions. I have a genuine passion for pouring intelligence into systems that make a difference — from end-to-end ML pipelines to generative AI applications."
+  marqueeTexts:
+    - "WE BUILD AI SYSTEMS"
+    - "WE CREATE INTELLIGENT PRODUCTS"
+    - "WE AUTOMATE REAL WORLD PROBLEMS"
+  certifications:
+    - "PW Data Science with Generative AI"
+    - "Krish Naik ADVANCE Data Science Programs"
+education:
+  - degree: "B.Tech in Computer Science"
+    institution: "MLV Textile & Engineering College, Bhilwara"
+    year: "2023 – 2027"
+    description: "Specializing in Data Science & AI Engineering"
+  - degree: "Data Science with Generative AI"
+    institution: "PW Skills (Online)"
+    year: "Oct 2024 – Jan 2026"
+    description: "Focused on Data Science, Machine Learning, and Generative AI applications"
+experience:
+  - title: "AI Engineering Intern"
+    company: "Company Name"
+    duration: "2025"
+    description: "Building ML pipelines and deploying intelligent automation systems for real-world applications."
+skills:
+  categories:
+    - title: "Programming"
+      items: 
+        - "Python"
+    - title: "Core AI/ML"
+      items:
+        - "Machine Learning"
+        - "Deep Learning"
+        - "NLP"
+        - "Data Analysis"
+    - title: "Advanced AI"
+      items:
+        - "Generative AI"
+        - "Agentic AI"
+    - title: "Tools & Infra"
+      items:
+        - "Docker"
+        - "FastAPI"
+        - "Git"
+techStack:
+  featured:
+    - "Python"
+    - "TensorFlow"
+    - "PyTorch"
+    - "LangChain"
+    - "Docker"
+    - "FastAPI"
+  all:
+    - "Python"
+    - "TensorFlow"
+    - "PyTorch"
+    - "LangChain"
+    - "Docker"
+    - "FastAPI"
+    - "Kubernetes"
+    - "Airflow"
+    - "MLflow"
+    - "Spark"
+    - "Pandas"
+    - "NumPy"
+    - "Scikit-learn"
+    - "OpenCV"
+    - "HuggingFace"
+    - "Redis"
+    - "PostgreSQL"
+    - "MongoDB"
+    - "Git"
+    - "Linux"
+    - "AWS"
+    - "GCP"
+    - "Streamlit"
+services:
+  - title: "AI & ML Solutions"
+    description: "End-to-end intelligent systems from data collection to deployment."
+    icon: "Brain"
+  - title: "Data Science Projects"
+    description: "Complete data science lifecycle — analysis, modeling, and visualization."
+    icon: "BarChart3"
+  - title: "Generative AI Apps"
+    description: "RAG systems, chatbots, and content generation powered by LLMs."
+    icon: "Sparkles"
+  - title: "Intelligent Automation"
+    description: "Automating complex workflows with AI-driven decision systems."
+    icon: "Zap"
+projects:
+  - id: 1
+    title: "🎧 Automated YouTube Mixtape Creation"
+    category:
+      - "Generative AI"
+      - "Python"
+    description: "An automated YouTube mixtape system that creates seamless mixtapes by combining multiple audio tracks, generating timelines, adding images, and auto-generating descriptions."
+    tech:
+      - "Python"
+      - "Streamlit"
+      - "NLP"
+      - "Audio Processing"
+    github: "https://github.com/Shivanshvyas1729/Automated-YouTube-Mixtape-Creation1"
+    live: "https://automated-youtube-mixtape-creation.streamlit.app/"
+    featured: true
+    impact: "Automates mixtape creation with zero manual editing"
+emailjs:
+  serviceId: "service_3rnk76r"
+  templateId: "template_4519p5r"
+  publicKey: "pQnzlnAMoWVOM5DTk"
