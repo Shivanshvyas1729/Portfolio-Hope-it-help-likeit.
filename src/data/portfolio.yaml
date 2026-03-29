@@ -34,7 +34,7 @@
 
 # region HOME
 home:
-  featuredProjectsCount: 6
+  featuredProjectsCount: 4
 # endregion
 
 # region PERSONAL
@@ -44,7 +44,7 @@ personal:
   email: "shivanshvyas1729@example.com"
   phone: "+91 6377099494"
   linkedin: "https://linkedin.com/in/shivanshvyas"
-  github: "https://github.com/shivanshvyas"
+  github: "https://github.com/Shivanshvyas1729"
   location: "Bhilwara, Rajasthan, India"
   profileImage:
     type: "url"
