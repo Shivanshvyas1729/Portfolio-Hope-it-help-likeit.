@@ -32,7 +32,7 @@
 # 📌 PORTFOLIO CONFIG (COLLAPSIBLE VERSION)
 # =========================================================
 
-# region HOME
+# region HOME 
 home:
   featuredProjectsCount: 4
 # endregion
@@ -58,12 +58,15 @@ hero:
     - "Building Scalable"
     - "AI Systems"
     - "That Create"
-    - "Real Impact"
+    - "Real Impact..."
   description: "I specialize in designing and deploying intelligent systems..."
   ctas:
-    - label: "View Projects"
+  
+    - label: "View Projects" 
+      #do not touch this link
       link: "#projects"
     - label: "Contact Me"
+    #do not touch this link
       link: "#contact"
 # endregion
 
@@ -75,19 +78,24 @@ stats:
 
 # region ABOUT
 about:
-  description: "A final-year B.Tech Computer Science student..."
+  description: "Final-year B.Tech CS (IoT) student at MLVIT, focused on developing impactful end-to-end solutions. Associated with TILS Edu, currently advancing in AI/ML through PW Skills Data Science and mentorship from Krish Naik. Continuously learning and open to constructive feedback"
+  # it is the light rotating part 
   marqueeTexts:
     - "WE BUILD AI SYSTEMS"
     - "WE CREATE INTELLIGENT PRODUCTS"
     - "WE AUTOMATE REAL WORLD PROBLEMS"
+
   certifications:
-    - "PW Data Science with Generative AI"
-    - "Krish Naik ADVANCE Data Science Programs"
+    - "Data Science with Generative AI – PW Skills"
+    - "Advanced Data Science Programs – Krish Naik"
+    - "Machine Learning Learning Plan Certification – Amazon Web Services"
+    - "Open Source Conference (OSSC 2025) Participation – The Linux Foundation"
+    - "Bharatiya Antariksh Hackathon 2025 – Certificate of Acknowledgement by Indian Space Research Organisation"
 # endregion
 
 # region EDUCATION
 education:
-  - degree: "B.Tech in Computer Science"
+  - degree: "B.Tech in Computer Science (iot)"
     institution: "MLV Textile & Engineering College, Bhilwara"
     year: "2023 – 2027"
     description: "Specializing in Data Science & AI Engineering"
@@ -99,11 +107,11 @@ education:
 # endregion
 
 # region EXPERIENCE
-experience:
-  - title: "AI Engineering Intern"
-    company: "Company Name"
-    duration: "2025"
-    description: "Building ML pipelines..."
+# experience:
+#   - title: "AI Engineering Intern"
+#     company: "Company Name"
+#     duration: "2025"
+#     description: "Building ML pipelines..."
 # endregion
 
 # region SKILLS
@@ -114,54 +122,72 @@ skills:
         - "Machine Learning"
         - "Deep Learning"
         - "NLP"
+        - "Computer Vision"
+        
         - "Data Analysis"
 
     - title: "Advanced AI"
       items:
         - "Generative AI"
         - "Agentic AI"
+        - "RAG"
 
     - title: "Tools & Infra"
       items:
         - "Docker"
+        - "Flask"
+        
         - "FastAPI"
         - "Git"
+        - "Github"
 # endregion
 
 # region TECH STACK
 techStack:
   featured:
     - "Python"
+    - "Scikit-learn"
     - "TensorFlow"
     - "PyTorch"
     - "LangChain"
     - "Docker"
     - "FastAPI"
+    - "Streamlit"
+    - "Mlflow"
+    - "RAG"
 
   all:
-    - "Python"
-    - "TensorFlow"
-    - "PyTorch"
-    - "LangChain"
-    - "Docker"
-    - "FastAPI"
-    - "Kubernetes"
-    - "Airflow"
-    - "MLflow"
-    - "Spark"
-    - "Pandas"
-    - "NumPy"
-    - "Scikit-learn"
-    - "OpenCV"
-    - "HuggingFace"
-    - "Redis"
-    - "PostgreSQL"
-    - "MongoDB"
-    - "Git"
-    - "Linux"
-    - "AWS"
-    - "GCP"
-    - "Streamlit"
+  - "Python"
+  - "Pandas"
+  - "NumPy"
+  - "Scikit-learn"
+  - "TensorFlow"
+  - "PyTorch"
+ 
+  
+
+  - "LangChain"
+  - "MLflow"
+ 
+
+  - "FastAPI"
+  - "Streamlit"
+
+  - "Docker"
+  
+
+ 
+
+  - "MySQL"
+  - "MongoDB"
+
+
+  - "Git"
+  - "GitHub"
+ 
+
+  - "AWS"
+
 # endregion
 
 # region SERVICES
@@ -204,17 +230,30 @@ projects:
     impact: "Zero manual editing"
 
   - id: 2
-    title: "🤖 AI Resume Analyzer"
+    title: "🥤 Drink Quality Prediction System"
     category:
-      - "NLP"
       - "Machine Learning"
-    description: "Analyzes resumes using NLP"
+      - "MLOps"
+      - "Python"
+    description: "End-to-end machine learning pipeline for predicting drink quality with automated CI/CD deployment using Docker and AWS."
+    media:
+      - type: "image"
+        url: "https://labelyourdata.com/cms/wp-content/uploads/2023/10/machine-learning-for-wine-quality-prediction_1.jpg"
     tech:
       - "Python"
-      - "NLP"
-    github: "#"
-    live: ""
+      - "Scikit-learn"
+      - "Docker"
+      - "AWS EC2"
+      - "AWS ECR"
+      - "GitHub Actions"
+      - "Streamlit"
+      - "Pandas"
+      - "YAML"
+    github: "https://github.com/Shivanshvyas1729/drink_quality_prediction"
+    live: "https://drinkqualityprediction.streamlit.app/"
     featured: true
+    impact: "Automated ML pipeline with production-ready CI/CD deployment"
+
 # endregion
 
 # region EMAILJS
@@ -226,5 +265,4 @@ emailjs:
 
 # region RESUME
 resume:
-  url: "https://resumesector.com/wp-content/uploads/2024/10/Best-Resume-Template-Free-Download-MS-Word--724x1024.jpg"
-# endregion
+  url: "https://shorturl.at/rlKAY"
