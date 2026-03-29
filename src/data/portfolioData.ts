@@ -34,6 +34,12 @@ export interface Service {
   icon?: string;
 }
 
+export interface ProjectMedia {
+  type: "image" | "video";
+  url: string;
+  caption?: string;
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -45,6 +51,14 @@ export interface Project {
   featured: boolean;
   impact: string;
   architectureImage?: string;
+  media?: ProjectMedia[];
+  howItWorks?: string;
+}
+
+export interface EmailJSConfig {
+  serviceId: string;
+  templateId: string;
+  publicKey: string;
 }
 
 export interface PortfolioData {
@@ -80,6 +94,7 @@ export interface PortfolioData {
   techStack: string[];
   services: Service[];
   projects: Project[];
+  emailjs: EmailJSConfig;
 }
 
 export const portfolioData: PortfolioData = {
