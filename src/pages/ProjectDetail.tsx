@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { portfolioData } from "@/data/portfolioData";
 import Navbar from "@/components/portfolio/Navbar";
 import Footer from "@/components/portfolio/Footer";
+import SEO from "@/components/portfolio/SEO";
 import { ArrowLeft, Github, ExternalLink, Play } from "lucide-react";
 import { useState } from "react";
 
@@ -25,6 +26,11 @@ const ProjectDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title={project.title} 
+        description={project.description} 
+        image={project.media?.[0]?.url} 
+      />
       <Navbar />
       <div className="section-padding pt-28">
         <div className="container mx-auto max-w-5xl">

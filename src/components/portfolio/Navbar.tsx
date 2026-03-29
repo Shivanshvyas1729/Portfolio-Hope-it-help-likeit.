@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -19,6 +19,7 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const navigate = useNavigate();
   const location = useLocation();
+  const resumeUrl = portfolioData?.resume?.url || "";
 
   useEffect(() => {
     const onScroll = () => {
@@ -76,6 +77,17 @@ const Navbar = () => {
               {link.label}
             </button>
           ))}
+          {resumeUrl && (
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-1.5 rounded-lg border border-primary/40 text-primary hover:bg-primary/10 hover:border-primary transition-all duration-200"
+            >
+              <FileText size={14} />
+              Resume
+            </a>
+          )}
         </div>
 
         <button
@@ -108,6 +120,18 @@ const Navbar = () => {
                   {link.label}
                 </button>
               ))}
+              {resumeUrl && (
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2 py-2 px-3 rounded-lg text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+                >
+                  <FileText size={14} />
+                  Resume
+                </a>
+              )}
             </div>
           </motion.div>
         )}

@@ -3,6 +3,7 @@ import { useProjectFilter } from "@/hooks/useProjectFilter";
 import ProjectCard from "@/components/portfolio/ProjectCard";
 import Navbar from "@/components/portfolio/Navbar";
 import Footer from "@/components/portfolio/Footer";
+import SEO from "@/components/portfolio/SEO";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AllProjects = () => {
@@ -10,6 +11,7 @@ const AllProjects = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO title="All Projects" />
       <Navbar />
       <div className="flex-1 section-padding pt-28">
         <div className="container mx-auto">

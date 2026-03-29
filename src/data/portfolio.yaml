@@ -1,5 +1,43 @@
+# =========================================================
+# 📌 PORTFOLIO DATA CONFIGURATION FILE
+# =========================================================
+# This YAML file controls the entire portfolio dynamically.
+# You only need to edit this file to update content.
+#
+# =========================================================
+# 📚 TABLE OF CONTENTS
+# =========================================================
+# 1. home        → Homepage settings
+# 2. personal    → Basic personal info
+# 3. hero        → Landing section content
+# 4. stats       → Quick stats display
+# 5. about       → About section
+# 6. education   → Academic details
+# 7. experience  → Work experience
+# 8. skills      → Skill categories
+# 9. techStack   → Tools & technologies
+# 10. services   → What you offer
+# 11. projects   → Portfolio projects
+# 12. emailjs    → Contact form config
+# 13. resume     → Resume button config
+#
+# =========================================================
+# 🧠 USE CASE
+# =========================================================
+# 👉 Edit this file → Portfolio updates automatically
+# 👉 Used by chatbot (RAG context)
+# 👉 Used by UI (cards, sections, filters)
+# =========================================================
+# =========================================================
+# 📌 PORTFOLIO CONFIG (COLLAPSIBLE VERSION)
+# =========================================================
+
+# region HOME
 home:
   featuredProjectsCount: 6
+# endregion
+
+# region PERSONAL
 personal:
   name: "Shivansh Vyas"
   title: "Data Scientist | AI Engineer"
@@ -12,23 +50,32 @@ personal:
     type: "url"
     value: "https://i.ibb.co/rKBnjv95/shivansh.jpg"
     position: "right"
+# endregion
+
+# region HERO
 hero:
   headline:
     - "Building Scalable"
     - "AI Systems"
     - "That Create"
     - "Real Impact"
-  description: "I specialize in designing and deploying intelligent systems — from machine learning pipelines to generative AI applications — that solve complex, real-world problems at scale."
+  description: "I specialize in designing and deploying intelligent systems..."
   ctas:
     - label: "View Projects"
       link: "#projects"
     - label: "Contact Me"
       link: "#contact"
+# endregion
+
+# region STATS
 stats:
-  projectsCount: 5
+  projectsCount: 6
   experienceCount: 1
+# endregion
+
+# region ABOUT
 about:
-  description: "A final-year B.Tech Computer Science student at MLV Textile & Engineering College, Bhilwara. I enjoy the process of solving problems with clean, scalable solutions. I have a genuine passion for pouring intelligence into systems that make a difference — from end-to-end ML pipelines to generative AI applications."
+  description: "A final-year B.Tech Computer Science student..."
   marqueeTexts:
     - "WE BUILD AI SYSTEMS"
     - "WE CREATE INTELLIGENT PRODUCTS"
@@ -36,40 +83,52 @@ about:
   certifications:
     - "PW Data Science with Generative AI"
     - "Krish Naik ADVANCE Data Science Programs"
+# endregion
+
+# region EDUCATION
 education:
   - degree: "B.Tech in Computer Science"
     institution: "MLV Textile & Engineering College, Bhilwara"
     year: "2023 – 2027"
     description: "Specializing in Data Science & AI Engineering"
+
   - degree: "Data Science with Generative AI"
     institution: "PW Skills (Online)"
     year: "Oct 2024 – Jan 2026"
-    description: "Focused on Data Science, Machine Learning, and Generative AI applications"
+    description: "Focused on ML & GenAI"
+# endregion
+
+# region EXPERIENCE
 experience:
   - title: "AI Engineering Intern"
     company: "Company Name"
     duration: "2025"
-    description: "Building ML pipelines and deploying intelligent automation systems for real-world applications."
+    description: "Building ML pipelines..."
+# endregion
+
+# region SKILLS
 skills:
   categories:
-    - title: "Programming"
-      items: 
-        - "Python"
     - title: "Core AI/ML"
       items:
         - "Machine Learning"
         - "Deep Learning"
         - "NLP"
         - "Data Analysis"
+
     - title: "Advanced AI"
       items:
         - "Generative AI"
         - "Agentic AI"
+
     - title: "Tools & Infra"
       items:
         - "Docker"
         - "FastAPI"
         - "Git"
+# endregion
+
+# region TECH STACK
 techStack:
   featured:
     - "Python"
@@ -78,6 +137,7 @@ techStack:
     - "LangChain"
     - "Docker"
     - "FastAPI"
+
   all:
     - "Python"
     - "TensorFlow"
@@ -102,36 +162,69 @@ techStack:
     - "AWS"
     - "GCP"
     - "Streamlit"
+# endregion
+
+# region SERVICES
 services:
   - title: "AI & ML Solutions"
-    description: "End-to-end intelligent systems from data collection to deployment."
+    description: "End-to-end intelligent systems"
     icon: "Brain"
+
   - title: "Data Science Projects"
-    description: "Complete data science lifecycle — analysis, modeling, and visualization."
+    description: "Analysis, modeling, visualization"
     icon: "BarChart3"
+
   - title: "Generative AI Apps"
-    description: "RAG systems, chatbots, and content generation powered by LLMs."
+    description: "RAG, chatbots, LLM apps"
     icon: "Sparkles"
+
   - title: "Intelligent Automation"
-    description: "Automating complex workflows with AI-driven decision systems."
+    description: "AI-driven workflows"
     icon: "Zap"
+# endregion
+
+# region PROJECTS
 projects:
   - id: 1
     title: "🎧 Automated YouTube Mixtape Creation"
     category:
       - "Generative AI"
       - "Python"
-    description: "An automated YouTube mixtape system that creates seamless mixtapes by combining multiple audio tracks, generating timelines, adding images, and auto-generating descriptions."
+    description: "Automated system that creates mixtapes..."
+    media:
+      - type: "image"
+        url: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485"
     tech:
       - "Python"
       - "Streamlit"
       - "NLP"
-      - "Audio Processing"
-    github: "https://github.com/Shivanshvyas1729/Automated-YouTube-Mixtape-Creation1"
+    github: "https://github.com/..."
     live: "https://automated-youtube-mixtape-creation.streamlit.app/"
     featured: true
-    impact: "Automates mixtape creation with zero manual editing"
+    impact: "Zero manual editing"
+
+  - id: 2
+    title: "🤖 AI Resume Analyzer"
+    category:
+      - "NLP"
+      - "Machine Learning"
+    description: "Analyzes resumes using NLP"
+    tech:
+      - "Python"
+      - "NLP"
+    github: "#"
+    live: ""
+    featured: true
+# endregion
+
+# region EMAILJS
 emailjs:
   serviceId: "service_3rnk76r"
   templateId: "template_4519p5r"
   publicKey: "pQnzlnAMoWVOM5DTk"
+# endregion
+
+# region RESUME
+resume:
+  url: "https://resumesector.com/wp-content/uploads/2024/10/Best-Resume-Template-Free-Download-MS-Word--724x1024.jpg"
+# endregion

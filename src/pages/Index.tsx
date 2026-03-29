@@ -1,6 +1,7 @@
 import Navbar from "@/components/portfolio/Navbar";
 import Hero from "@/components/portfolio/Hero";
 import About from "@/components/portfolio/About";
+import SEO from "@/components/portfolio/SEO";
 import Education from "@/components/portfolio/Education";
 import Experience from "@/components/portfolio/Experience";
 import Skills from "@/components/portfolio/Skills";
@@ -11,7 +12,8 @@ import Contact from "@/components/portfolio/Contact";
 import Footer from "@/components/portfolio/Footer";
 
 const Index = () => (
-  <div className="min-h-screen">
+  <div className="min-h-screen bg-background">
+    <SEO />
     <Navbar />
     <Hero />
     <About />

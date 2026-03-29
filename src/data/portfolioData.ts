@@ -105,6 +105,9 @@ export interface PortfolioData {
   services: Service[];
   projects: Project[];
   emailjs: EmailJSConfig;
+  resume?: {
+    url: string;
+  };
 }
 
 let parsedData: Partial<PortfolioData> = {};
