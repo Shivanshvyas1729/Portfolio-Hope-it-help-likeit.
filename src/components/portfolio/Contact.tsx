@@ -1,16 +1,53 @@
 import { portfolioData } from "@/data/portfolioData";
 import AnimatedSection from "./AnimatedSection";
-import { Mail, Phone, Linkedin, Github, Send } from "lucide-react";
-import { useState, FormEvent } from "react";
+import { Mail, Phone, Linkedin, Github, Send, Loader2, CheckCircle } from "lucide-react";
+import { useState, FormEvent, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
-  const { personal } = portfolioData;
+  const { personal, emailjs: emailjsConfig } = portfolioData;
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const isEmailJSConfigured =
+    emailjsConfig.serviceId !== "YOUR_EMAILJS_SERVICE_ID" &&
+    emailjsConfig.templateId !== "YOUR_EMAILJS_TEMPLATE_ID" &&
+    emailjsConfig.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY" &&
+    emailjsConfig.serviceId &&
+    emailjsConfig.templateId &&
+    emailjsConfig.publicKey;
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const mailto = `mailto:${personal.email}?subject=Portfolio Contact from ${form.name}&body=${encodeURIComponent(form.message)}`;
-    window.open(mailto);
+
+    if (!isEmailJSConfigured) {
+      // Fallback to mailto
+      const mailto = `mailto:${personal.email}?subject=Portfolio Contact from ${form.name}&body=${encodeURIComponent(form.message)}`;
+      window.open(mailto);
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await emailjs.send(
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+          to_name: personal.name,
+        },
+        emailjsConfig.publicKey
+      );
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   const links = [
@@ -33,28 +70,28 @@ const Contact = () => {
           </p>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
           <AnimatedSection>
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {links.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="glass-card-hover p-4 flex items-center gap-4 group"
+                  className="glass-card-hover p-3 md:p-4 flex items-center gap-3 md:gap-4 group"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                     <Icon size={18} className="text-primary" />
                   </div>
-                  <span className="text-muted-foreground group-hover:text-foreground transition-colors text-sm">{label}</span>
+                  <span className="text-muted-foreground group-hover:text-foreground transition-colors text-sm truncate">{label}</span>
                 </a>
               ))}
             </div>
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-4 md:p-6 space-y-4">
               {(["name", "email"] as const).map((field) => (
                 <div key={field}>
                   <label className="text-sm text-muted-foreground capitalize mb-1 block">{field}</label>
@@ -79,9 +116,13 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium text-sm hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.5)] hover:scale-[1.02] transition-all duration-300"
+                disabled={status === "sending"}
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium text-sm hover:shadow-[0_0_30px_-5px_hsl(var(--primary)/0.5)] hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100"
               >
-                Send Message <Send size={16} />
+                {status === "sending" && <><Loader2 size={16} className="animate-spin" /> Sending...</>}
+                {status === "sent" && <><CheckCircle size={16} /> Sent Successfully!</>}
+                {status === "error" && <>Failed to send. Try again.</>}
+                {status === "idle" && <>Send Message <Send size={16} /></>}
               </button>
             </form>
           </AnimatedSection>
