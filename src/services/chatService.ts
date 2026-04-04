@@ -1,4 +1,5 @@
 import { portfolioData } from "@/data/portfolioData";
+import { logger } from "@/utils/logger";
 
 // ============================================================
 // CONFIGURATION
@@ -15,7 +16,6 @@ import { portfolioData } from "@/data/portfolioData";
 //
 // API keys (Gemini, OpenAI, etc.) live ONLY on the backend.
 // ============================================================
-const API_URL = import.meta.env.VITE_API_CHAT_URL as string | undefined;
 
 // ============================================================
 // CONTEXT BUILDER (sent to backend as system context)
@@ -62,35 +62,46 @@ ${d.about?.description}
 };
 
 // ============================================================
-// BACKEND CALL  →  POST /api/chat
+// BACKEND CALL  →  POST directly to Google Gemini
 // Returns null if the backend is unavailable or errors out.
 // ============================================================
 const callBackend = async (message: string): Promise<string | null> => {
-  if (!API_URL) return null; // No backend configured — skip silently
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) {
+    logger.warn('ChatService', 'No Gemini API key found in VITE_GEMINI_API_KEY. Skipping to fallback API.');
+    return null;
+  }
 
   try {
-    const res = await fetch(API_URL, {
+    logger.info('ChatService', 'Initiating call to Gemini API...');
+    const fullMessage = `System Context:\n${buildPortfolioContext()}\n\nUser: ${message}`;
+    
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // Only the user's message is sent. Context + API keys stay on the server.
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: fullMessage }] }]
+      }),
       signal: AbortSignal.timeout(10000), // 10s timeout
     });
 
     if (!res.ok) {
-      console.warn(`[chatService] Backend returned ${res.status}. Falling back to mock AI.`);
+      logger.error('ChatService', `Gemini returned HTTP ${res.status}. Falling back to mock AI.`);
       return null;
     }
 
     const data = await res.json();
-    if (typeof data?.response !== "string") {
-      console.warn("[chatService] Unexpected backend response shape. Falling back to mock AI.");
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (typeof text !== "string") {
+      logger.error('ChatService', "Unexpected Gemini response shape. Could not parse candidates array.", data);
       return null;
     }
 
-    return data.response;
+    logger.info('ChatService', 'Successfully received response from Gemini API.');
+    return text;
   } catch (err) {
-    console.warn("[chatService] Backend unreachable. Falling back to mock AI.", err);
+    logger.error('ChatService', "Gemini unreachable (timeout or network error). Falling back to mock AI.", err);
     return null;
   }
 };
@@ -229,7 +240,7 @@ You can ask:
 • 📧 Contact info
 
 Try asking:
-👉 "What is your name?"
+👉 "👤 Personal info (name, location)"
 👉 "Show your projects"
 👉 "Tell me about your skills" 🚀`;
 };

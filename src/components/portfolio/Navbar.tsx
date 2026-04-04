@@ -43,9 +43,11 @@ const Navbar = () => {
       navigate("/");
       setTimeout(() => {
         document.getElementById(href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      }, 400);
     } else {
-      document.getElementById(href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+        document.getElementById(href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
+      }, 400);
     }
   };
 
@@ -104,14 +106,14 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-card mt-2 mx-4 rounded-xl overflow-hidden"
+            className="md:hidden bg-card/95 border border-border/30 mt-2 mx-4 rounded-xl overflow-hidden transform-gpu relative z-10 shadow-2xl backdrop-blur-none"
           >
             <div className="flex flex-col gap-1 p-4">
               {navLinks.map((link) => (
                 <button
                   key={link.href}
                   onClick={() => handleClick(link.href)}
-                  className={`text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
+                  className={`w-full block cursor-pointer text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
                     activeSection === link.href.replace("#", "")
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
