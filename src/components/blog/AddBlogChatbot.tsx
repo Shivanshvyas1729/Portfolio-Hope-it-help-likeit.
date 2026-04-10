@@ -58,8 +58,29 @@ export function AddBlogChatbot() {
     // Process State Machine Response
     switch (currentExpectedType) {
       case "password":
-        setPassword(text.trim());
-        addBotMessage("Authentication provisionally accepted. What type of post are you adding?", "category", ["Notes", "Thoughts", "Books", "Links"]);
+        setIsSubmitting(true);
+        // Call the backend just to verify auth. If it's valid, it passes 401 and hits 400 (missing blog fields), which is acceptable for verification!
+        try {
+          const checkRes = await fetch("/.netlify/functions/save-blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password: text.trim(), blogData: null }),
+          });
+          
+          setIsSubmitting(false);
+
+          if (checkRes.status === 401) {
+            addBotMessage("Invalid Password. Access denied.", "error");
+            return; // stop execution, do not proceed!
+          }
+          
+          // Password passed the 401 check!
+          setPassword(text.trim());
+          addBotMessage("Authentication provisionally accepted. What type of post are you adding?", "category", ["Notes", "Thoughts", "Books", "Links"]);
+        } catch (err) {
+          setIsSubmitting(false);
+          addBotMessage("Network Error: Could not reach the authentication server.", "error");
+        }
         break;
 
       case "category":

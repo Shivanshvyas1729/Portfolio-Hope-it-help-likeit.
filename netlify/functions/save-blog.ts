@@ -12,14 +12,18 @@ export const handler: Handler = async (event, context) => {
   }
 
   try {
-    const payload = JSON.parse(event.body || "{}");
-    const { password, blogData } = payload;
+    const body = JSON.parse(event.body || "{}");
+    const password = body.password;
+    const blogData = body.blogData;
 
-    // Validate the admin password
-    if (password !== process.env.ADMIN_PASSWORD) {
+    console.log("Entered password:", password);
+    console.log("Expected password:", process.env.ADMIN_PASSWORD);
+
+    // Perform strict validation
+    if (!password || password !== process.env.ADMIN_PASSWORD) {
       return {
         statusCode: 401,
-        body: JSON.stringify({ error: "Unauthorized: Invalid Password" }),
+        body: JSON.stringify({ error: "Invalid Password" })
       };
     }
 
