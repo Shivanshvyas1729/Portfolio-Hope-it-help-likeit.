@@ -11,3 +11,19 @@ blog:
     category: Thoughts
     link: 'no'
     date: '2026-04-10'
+  - id: 3
+    title: NLP NOTES
+    slug: nlp-notes
+    readingTime: 1
+    content: These are my NLP note for quick reference -hope it will help
+    category: Notes
+    type:
+      - Deep Learning
+      - NLP
+    link: ''
+    date: '2026-04-11'
+    featured: false
+    draft: true
+    resources:
+      - label: Git hub
+        url: https://github.com/Shivanshvyas1729/MY-Complete-NLP-NoteBook
