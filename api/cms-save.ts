@@ -1,4 +1,4 @@
-import { coreUpdateYamlSection } from "../src/lib/cms-core";
+import { coreUpdateYamlSection } from "../src/lib/cms-core.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {

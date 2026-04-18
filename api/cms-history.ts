@@ -1,4 +1,4 @@
-import { coreGetHistory } from "../src/lib/cms-core";
+import { coreGetHistory } from "../src/lib/cms-core.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") {

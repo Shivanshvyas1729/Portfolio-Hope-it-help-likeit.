@@ -1,4 +1,4 @@
-import { coreGetLatestData } from "../src/lib/cms-core";
+import { coreGetLatestData } from "../src/lib/cms-core.js";
 
 export default async function handler(req: any, res: any) {
   if (req.method !== "GET") {
