@@ -9,9 +9,14 @@ import ProjectDetail from "./pages/ProjectDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Blog from "./pages/Blog.tsx";
 import ChatAssistant from "./components/portfolio/ChatAssistant.tsx";
+import CursorGlow from "./components/ui/CursorGlow";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AuthProvider } from "./hooks/useAuth";
+import { CMSProvider } from "./context/CMSContext";
 import { AdminAuth } from "./components/blog/AdminAuth.tsx";
+import EdgeRopeLight from "./components/portfolio/EdgeRopeLight";
+import GlobalTextEffector from "./components/portfolio/GlobalTextEffector";
+import GlobalScrollReveal from "./components/portfolio/GlobalScrollReveal";
 import { useState } from "react";
 
 const queryClient = new QueryClient();
@@ -22,6 +27,18 @@ function AppShell() {
 
   return (
     <BrowserRouter>
+      {/* Global Cursor Ambient Glow */}
+      <CursorGlow />
+
+      {/* Global Dynamic Text Interaction */}
+      <GlobalTextEffector />
+
+      {/* Global Scroll Reveal Animation */}
+      <GlobalScrollReveal />
+
+      {/* Global Seamless Rope Light Layer */}
+      <EdgeRopeLight />
+
       {/* Global floating lock — visible on every page */}
       <AdminAuth isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
 
@@ -40,13 +57,15 @@ function AppShell() {
 const App = () => (
   <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <AppShell />
-        </TooltipProvider>
-      </QueryClientProvider>
+      <CMSProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <AppShell />
+          </TooltipProvider>
+        </QueryClientProvider>
+      </CMSProvider>
     </AuthProvider>
   </ThemeProvider>
 );

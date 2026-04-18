@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
-type Role = "public" | "blog" | "secret" | "admin";
+type Role = "public" | "blog" | "secret" | "admin" | "editor";
 
 interface AuthContextType {
   roles: Role[];
-  login: (type: "blog" | "secret" | "admin", password?: string, username?: string) => Promise<boolean>;
+  login: (type: "blog" | "secret" | "admin" | "editor", password?: string, username?: string) => Promise<boolean>;
   logout: () => void;
   hasAccess: (role: Role) => boolean;
 }
@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [roles, setRoles] = useState<Role[]>(["public"]);
 
-  const login = async (type: "blog" | "secret" | "admin", password?: string, username?: string) => {
+  const login = async (type: "blog" | "secret" | "admin" | "editor", password?: string, username?: string) => {
     try {
       const res = await fetch("/api/auth", {
         method: "POST",
@@ -27,6 +27,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           if (!prev.includes(data.role)) return [...prev, data.role];
           return prev;
         });
+        
+        // Store password in session for authorized actions (e.g. save/delete)
+        // This avoids hardcoding passwords in the JS bundle.
+        if (password) {
+          sessionStorage.setItem("sitePassword", password);
+        }
+        
         return true;
       }
       return false;
@@ -37,6 +44,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setRoles(["public"]);
+    sessionStorage.removeItem("sitePassword");
+    sessionStorage.removeItem("adminAuth");
   };
 
   const hasAccess = (requiredRole: Role) => {

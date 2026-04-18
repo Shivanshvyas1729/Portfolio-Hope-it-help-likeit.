@@ -1,12 +1,15 @@
-import { portfolioData, hasContent } from "@/data/portfolioData";
+import { portfolioData as initialData, hasContent } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import { Award } from "lucide-react";
 
 const About = () => {
-  const { about } = portfolioData;
-  const marquee = about.marqueeTexts.length < 3
-    ? [...about.marqueeTexts, ...about.marqueeTexts, ...about.marqueeTexts]
-    : [...about.marqueeTexts, ...about.marqueeTexts];
+  const about = useCMSData(d => d.about) || initialData.about;
+  
+  const marqueeTexts = about?.marqueeTexts || initialData.about.marqueeTexts;
+  const marquee = marqueeTexts.length < 3
+    ? [...marqueeTexts, ...marqueeTexts, ...marqueeTexts]
+    : [...marqueeTexts, ...marqueeTexts];
 
   return (
     <section id="about" className="section-padding overflow-hidden">
@@ -26,12 +29,14 @@ const About = () => {
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-4">About Me</h2>
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div>
-              <p className="text-lg text-muted-foreground leading-relaxed">{about.description}</p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                {about?.description || initialData.about.description}
+              </p>
             </div>
-            {hasContent(about.certifications) && (
+            {hasContent(about?.certifications) && (
               <div className="space-y-4">
                 <h3 className="text-foreground font-heading font-semibold text-lg mb-4">Certifications</h3>
-                {about.certifications.map((cert) => (
+                {(about?.certifications || initialData.about.certifications).map((cert) => (
                   <div key={cert} className="glass-card-hover p-4 flex items-start gap-3">
                     <Award size={20} className="text-primary mt-0.5 shrink-0" />
                     <span className="text-muted-foreground text-sm">{cert}</span>

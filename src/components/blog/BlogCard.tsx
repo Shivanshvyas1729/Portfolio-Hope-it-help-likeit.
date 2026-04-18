@@ -34,7 +34,7 @@ export function BlogCard({ post, onClick, isAdmin, onDelete }: BlogCardProps) {
 
     try {
       const { ok, data } = await apiFetch(API_ROUTES.deleteBlog, {
-        password: import.meta.env.VITE_ADMIN_PASSWORD || "ShivaAnt",
+        password: sessionStorage.getItem("sitePassword") || "",
         postId:   post.id,
         postSlug: post.slug,
       });

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 
 interface SEOProps {
   title?: string;
@@ -10,27 +11,19 @@ interface SEOProps {
 
 /**
  * Zero-dependency SEO manager using native DOM head mutations.
- * No external package required - works in any Vite/React SPA.
- * Drop-in compatible: if react-helmet-async is later installed, 
- * this component can be swapped without changing any page imports.
+ * Fully reactive to CMS preview updates.
  */
-const setMeta = (selector: string, attr: string, content: string) => {
-  if (!content) return;
-  let el = document.querySelector(selector) as HTMLMetaElement | null;
-  if (!el) {
-    el = document.createElement("meta");
-    document.head.appendChild(el);
-  }
-  el.setAttribute(attr === "name" ? "name" : "property", selector.match(/\[name="([^"]+)"\]/)?.[1] || selector.match(/\[property="([^"]+)"\]/)?.[1] || "");
-  el.setAttribute("content", content);
-};
-
 const SEO = ({ title, description, image, url }: SEOProps) => {
-  const defaultTitle = `${portfolioData?.personal?.name ?? "Portfolio"} | ${portfolioData?.personal?.title ?? "Developer"}`;
-  const defaultDesc = portfolioData?.hero?.description || portfolioData?.about?.description || "";
-  const defaultImage = portfolioData?.personal?.profileImage?.value || "";
+  // Selector-based data consumption for SEO metadata
+  const personal = useCMSData(d => d.personal) || initialData.personal;
+  const heroDescription = useCMSData(d => d.hero?.description) || initialData.hero.description;
+  const aboutDescription = useCMSData(d => d.about?.description) || initialData.about.description;
 
-  const seoTitle = title ? `${title} | ${portfolioData?.personal?.name ?? "Portfolio"}` : defaultTitle;
+  const defaultTitle = `${personal?.name ?? "Portfolio"} | ${personal?.title ?? "Developer"}`;
+  const defaultDesc = heroDescription || aboutDescription || "";
+  const defaultImage = personal?.profileImage?.value || "";
+
+  const seoTitle = title ? `${title} | ${personal?.name ?? "Portfolio"}` : defaultTitle;
   const seoDesc = description || defaultDesc;
   const seoImage = image || defaultImage;
   const currentUrl = url || (typeof window !== "undefined" ? window.location.href : "");
@@ -44,38 +37,30 @@ const SEO = ({ title, description, image, url }: SEOProps) => {
     if (!descEl) { descEl = document.createElement("meta"); descEl.setAttribute("name", "description"); document.head.appendChild(descEl); }
     descEl.setAttribute("content", seoDesc);
 
-    // OG tags helper
-    const setOG = (prop: string, content: string) => {
+    // Helpers for OG/Twitter tags
+    const setMeta = (property: boolean, name: string, content: string) => {
       if (!content) return;
-      let el = document.querySelector(`meta[property="${prop}"]`) as HTMLMetaElement | null;
-      if (!el) { el = document.createElement("meta"); el.setAttribute("property", prop); document.head.appendChild(el); }
-      el.setAttribute("content", content);
-    };
-    const setTw = (name: string, content: string) => {
-      if (!content) return;
-      let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
-      if (!el) { el = document.createElement("meta"); el.setAttribute("name", name); document.head.appendChild(el); }
+      const attr = property ? "property" : "name";
+      let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+      if (!el) { el = document.createElement("meta"); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.setAttribute("content", content);
     };
 
-    setOG("og:type", "website");
-    setOG("og:url", currentUrl);
-    setOG("og:title", seoTitle);
-    setOG("og:description", seoDesc);
-    if (seoImage) setOG("og:image", seoImage);
+    setMeta(true, "og:type", "website");
+    setMeta(true, "og:url", currentUrl);
+    setMeta(true, "og:title", seoTitle);
+    setMeta(true, "og:description", seoDesc);
+    if (seoImage) setMeta(true, "og:image", seoImage);
 
-    setTw("twitter:card", "summary_large_image");
-    setTw("twitter:url", currentUrl);
-    setTw("twitter:title", seoTitle);
-    setTw("twitter:description", seoDesc);
-    if (seoImage) setTw("twitter:image", seoImage);
+    setMeta(false, "twitter:card", "summary_large_image");
+    setMeta(false, "twitter:url", currentUrl);
+    setMeta(false, "twitter:title", seoTitle);
+    setMeta(false, "twitter:description", seoDesc);
+    if (seoImage) setMeta(false, "twitter:image", seoImage);
 
-    if (import.meta.env.DEV) {
-      console.info(`🛡️ SEO: <title> → "${seoTitle}"`);
-    }
   }, [seoTitle, seoDesc, seoImage, currentUrl]);
 
-  return null; // No JSX needed - all mutations go directly to document.head
+  return null;
 };
 
 export default SEO;

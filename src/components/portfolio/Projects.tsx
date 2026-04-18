@@ -1,11 +1,14 @@
-import { getFeaturedProjects, hasContent } from "@/data/portfolioData";
+import { getFeaturedProjects, portfolioData as initialData } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import ProjectCard from "./ProjectCard";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const Projects = () => {
-  const featured = getFeaturedProjects();
+  const currentData = useCMSData(d => d) || initialData;
+  const featured = getFeaturedProjects(currentData);
+
   if (!featured || featured.length === 0) {
     return (
       <section id="projects" className="section-padding">

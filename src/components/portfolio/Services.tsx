@@ -1,4 +1,5 @@
-import { portfolioData, hasContent } from "@/data/portfolioData";
+import { portfolioData as initialData, hasContent } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import { Brain, BarChart3, Sparkles, Zap, Cog } from "lucide-react";
 import { motion } from "framer-motion";
@@ -6,7 +7,8 @@ import { motion } from "framer-motion";
 const iconMap: Record<string, typeof Brain> = { Brain, BarChart3, Sparkles, Zap, Cog };
 
 const Services = () => {
-  const { services } = portfolioData;
+  const services = useCMSData(d => d.services) || initialData.services;
+
   if (!hasContent(services)) return null;
 
   return (
@@ -26,7 +28,7 @@ const Services = () => {
           className="grid gap-6"
           style={{ gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, 280px), 1fr))` }}
         >
-          {services.map((service, i) => {
+          {(services || []).map((service, i) => {
             const Icon = iconMap[service.icon || "Cog"] || Cog;
             return (
               <AnimatedSection key={service.title} delay={i * 0.1}>

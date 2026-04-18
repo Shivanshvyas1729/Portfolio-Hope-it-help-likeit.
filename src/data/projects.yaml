@@ -1,162 +1,142 @@
 # region PROJECTS
 projects:
-  - id: 1
-    title: "🎧 Automated YouTube Mixtape Creation"
-    category:
-      - "Python"
-    description: "Automated system that creates mixtapes..."
-    media:
-      - type: "image"
-        url: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485"
-    tech:
-      - "Python"
-      - "Streamlit"
-      - "NLP"
-      - "Pydub"
-      - "MoviePy"
-      - "FFmpeg"
-    github: "https://github.com/Shivanshvyas1729/Automated-YouTube-Mixtape-Creation1/tree/main"
-    live: "https://automated-youtube-mixtape-creation.streamlit.app/"
-    featured: true
-    impact: "Zero manual editing"
-    resources:
-      - label: "Architecture PDF"
-        url: "https://drive.google.com/drive/folders/1zYdh2-eu6yUfUA4IYokQsziallVQXCGr"
-      - label: "System Design Spec"
-        url: "https://example.com/design.pdf"
-
-    problem_statement: "Content creators spend hours manually compiling, trimming, and producing mixtapes for YouTube. There exists a need for an automated solution capable of digesting input criteria, extracting audio sources, and exporting a polished output with zero manual editing."
-    
-    learning_outcomes:
-      - "Integrate third-party multimedia APIs securely"
-      - "Orchestrate FFmpeg sub-processes for scalable audio processing"
-      - "Design and deploy interactive interfaces with Streamlit"
-      
-    architecture: "A user visits the Streamlit frontend to define audio parameters. A Python orchestration layer coordinates NLP analysis to detect timestamps, passes data to Pydub and FFmpeg for editing, and returns a processed video and audio file directly to the browser for download."
-    architectureImage: ""
-    
-    objectives:
-      - "Reduce video production time from hours to minutes"
-      - "Implement an error-free timeline alignment algorithm"
-      
-    success_criteria:
-      - "Successfully render a 15-minute mixtape in under 2 minutes"
-      - "Maintain HD audio quality with zero clipping during transitions"
-      
-    data_sources:
-      - "YouTube Data API v3"
-      - "Spotify Web API"
-      
-    target_variable: "Not applicable (Rule-based automation)"
-    
-    features:
-      - "Auto-timestamp extraction"
-      - "Audio cross-fading"
-      - "Dynamic video rendering"
-      
-    preprocessing:
-      - "Sanitize user prompt inputs"
-      - "Normalize retrieved audio levels"
-      - "Transcode all media to a standard format prior to editing"
-      
-    modeling:
-      - "Spacy for NLP entity extraction in music titles"
-      
-    evaluation_metrics:
-      - "Processing pipeline time"
-      - "API response latency"
-      
-    validation_strategy: "Extensive manual QA across 50 different genres of music"
-    explainability: "All steps in the timeline creation are printed to screen for debugging and human verification."
-    deployment: "Deployed as a containerized Streamlit Web App on Streamlit Community Cloud."
-    
-    risks:
-      - "Rate-limiting by YouTube API"
-      - "High memory consumption during render"
-      
-    ethics:
-      - "Strict filtering to ignore copyrighted material not licensed for remixing"
-      
-    open_resources:
-      - label: "FFmpeg Documentation"
-        url: "https://ffmpeg.org/documentation.html"
-      - label: "Pydub GitHub"
-        url: "https://github.com/jiaaro/pydub"
-
-  - id: 2
-    title: "🥤 Drink Quality Prediction System"
-    category:
-      - "Machine Learning"
-      - "MLOps"
-      - "Python"
-    description: "End-to-end machine learning pipeline for predicting drink quality with automated CI/CD deployment using Docker and AWS."
-    media:
-      - type: "image"
-        url: "https://labelyourdata.com/cms/wp-content/uploads/2023/10/machine-learning-for-wine-quality-prediction_1.jpg"
-    tech:
-      - "Python"
-      - "Scikit-learn"
-      - "Docker"
-      - "AWS EC2"
-      - "AWS ECR"
-      - "GitHub Actions"
-      - "Streamlit"
-      - "Pandas"
-      - "YAML"
-    github: "https://github.com/Shivanshvyas1729/drink_quality_prediction"
-    live: "https://drinkqualityprediction.streamlit.app/"
-    featured: true
-    impact: "Automated ML pipeline with production-ready CI/CD deployment"
-
-  - id: 3
-    title: "🌦 Thunderstorm Forecasting System"
-    category:
-      - "Machine Learning"
-      - "Python"
-    description: "Machine learning-based system for real-time thunderstorm prediction using atmospheric indices, featuring a FastAPI backend and interactive Streamlit interface."
-    media:
-      - type: "image"
-        url: "https://www.reconnectwithnature.org/getContentAsset/a2de823c-a1ae-491e-a47b-f373af403d4e/dfc3d011-8f63-43f6-9ed8-4b444333a1d0/Thunderstorm-lightning-strike-shutterstock-1.jpg?language=en-US"
-    tech:
-      - "Weather Prediction"
-      - "Python"
-      - "Scikit-learn"
-      - "FastAPI"
-      - "Streamlit"
-      - "Pandas"
-      - "NumPy"
-      - "Imbalanced-learn"
-    github: "https://github.com/Shivanshvyas1729/Thunderstrom_forcast"
-    live: "https://thunderstromforcast.streamlit.app/"
-    featured: true
-    impact: "Real-time thunderstorm prediction with optimized ML model and interactive UI"
-
   - id: 4
-    title: "☀️ Solar Panel Defect Detection System"
+    title: ☀️ Solar Panel Defect Detection System
     category:
-      - "Deep Learning"
-      - "Computer Vision"
-    description: "An AI-powered solar panel defect detection system using transfer learning with EfficientNet-B0. The model leverages pretrained weights to achieve high accuracy with limited data, enabling fast and reliable classification of defects like dust, bird drops, and physical damage through an interactive Streamlit web app."
+      - Deep Learning
+      - Computer Vision
+    description: An AI-powered solar panel defect detection system using transfer learning with EfficientNet-B0. The model leverages pretrained weights to achieve high accuracy with limited data, enabling fast and reliable classification of defects like dust, bird drops, and physical damage through an interactive Streamlit web app.
     media:
-      - type: "image"
-        url: "https://i.ibb.co/fdj291HQ/Gemini-Generated-Image-14r8ms14r8ms14r8.png"
+      - type: image
+        url: https://i.ibb.co/fdj291HQ/Gemini-Generated-Image-14r8ms14r8ms14r8.png
     tech:
-      - "Python"
-      - "PyTorch"
-      - "Torchvision"
-      - "Streamlit"
-      - "NumPy"
-      - "PIL"
-      - "Transfer Learning"
-    github: "https://github.com/Shivanshvyas1729/solar_panel_defect_detection"
-    live: "https://solarpaneldefectdetection.streamlit.app/"
+      - Python
+      - PyTorch
+      - Torchvision
+      - Streamlit
+      - NumPy
+      - PIL
+      - Transfer Learning
+    github: https://github.com/Shivanshvyas1729/solar_panel_defect_detection
+    live: https://solarpaneldefectdetection.streamlit.app/
     featured: true
-    impact: "Improves efficiency of solar panel maintenance by enabling quick and automated defect detection, reducing manual inspection effort and supporting scalable renewable energy operations."
+    impact: Improves efficiency of solar panel maintenance by enabling quick and automated defect detection, reducing manual inspection effort and supporting scalable renewable energy operations.
     resources:
-      - label: "Architecture PDF"
-        url: "https://drive.google.com/drive/folders/1zYdh2-eu6yUfUA4IYokQsziallVQXCGr"
-
-
-    architectureImage: "https://backend.krishnaik.in/media/project_architecture_diagrams/Gemini_Generated_Image_vwro75vwro75vwro_UvMo1qV.jpg"
+      - label: Architecture PDF
+        url: https://drive.google.com/drive/folders/1zYdh2-eu6yUfUA4IYokQsziallVQXCGr
+    architectureImage: https://backend.krishnaik.in/media/project_architecture_diagrams/Gemini_Generated_Image_vwro75vwro75vwro_UvMo1qV.jpg
+  - id: 3
+    title: 🌦 Thunderstorm Forecasting System
+    category:
+      - Machine Learning
+      - Python
+    description: Machine learning-based system for real-time thunderstorm prediction using atmospheric indices, featuring a FastAPI backend and interactive Streamlit interface.
+    media:
+      - type: image
+        url: https://www.reconnectwithnature.org/getContentAsset/a2de823c-a1ae-491e-a47b-f373af403d4e/dfc3d011-8f63-43f6-9ed8-4b444333a1d0/Thunderstorm-lightning-strike-shutterstock-1.jpg?language=en-US
+    tech:
+      - Weather Prediction
+      - Python
+      - Scikit-learn
+      - FastAPI
+      - Streamlit
+      - Pandas
+      - NumPy
+      - Imbalanced-learn
+    github: https://github.com/Shivanshvyas1729/Thunderstrom_forcast
+    live: https://thunderstromforcast.streamlit.app/
+    featured: true
+    impact: Real-time thunderstorm prediction with optimized ML model and interactive UI
+  - id: 2
+    title: 🥤 Drink Quality Prediction System
+    category:
+      - Machine Learning
+      - MLOps
+      - Python
+    description: End-to-end machine learning pipeline for predicting drink quality with automated CI/CD deployment using Docker and AWS.
+    media:
+      - type: image
+        url: https://labelyourdata.com/cms/wp-content/uploads/2023/10/machine-learning-for-wine-quality-prediction_1.jpg
+    tech:
+      - Python
+      - Scikit-learn
+      - Docker
+      - AWS EC2
+      - AWS ECR
+      - GitHub Actions
+      - Streamlit
+      - Pandas
+      - YAML
+    github: https://github.com/Shivanshvyas1729/drink_quality_prediction
+    live: https://drinkqualityprediction.streamlit.app/
+    featured: true
+    impact: Automated ML pipeline with production-ready CI/CD deployment
+  - id: 1
+    title: 🎧 Automated YouTube Mixtape Creation
+    category:
+      - Python
+    description: Automated system that creates mixtapes...
+    media:
+      - type: image
+        url: https://images.unsplash.com/photo-1620712943543-bcc4688e7485
+    tech:
+      - Python
+      - Streamlit
+      - NLP
+      - Pydub
+      - MoviePy
+      - FFmpeg
+    github: https://github.com/Shivanshvyas1729/Automated-YouTube-Mixtape-Creation1/tree/main
+    live: https://automated-youtube-mixtape-creation.streamlit.app/
+    featured: true
+    impact: Zero manual editing
+    resources:
+      - label: Architecture PDF
+        url: https://drive.google.com/drive/folders/1zYdh2-eu6yUfUA4IYokQsziallVQXCGr
+      - label: System Design Spec
+        url: https://example.com/design.pdf
+    problem_statement: Content creators spend hours manually compiling, trimming, and producing mixtapes for YouTube. There exists a need for an automated solution capable of digesting input criteria, extracting audio sources, and exporting a polished output with zero manual editing.
+    learning_outcomes:
+      - Integrate third-party multimedia APIs securely
+      - Orchestrate FFmpeg sub-processes for scalable audio processing
+      - Design and deploy interactive interfaces with Streamlit
+    architecture: A user visits the Streamlit frontend to define audio parameters. A Python orchestration layer coordinates NLP analysis to detect timestamps, passes data to Pydub and FFmpeg for editing, and returns a processed video and audio file directly to the browser for download.
+    architectureImage: ""
+    objectives:
+      - Reduce video production time from hours to minutes
+      - Implement an error-free timeline alignment algorithm
+    success_criteria:
+      - Successfully render a 15-minute mixtape in under 2 minutes
+      - Maintain HD audio quality with zero clipping during transitions
+    data_sources:
+      - YouTube Data API v3
+      - Spotify Web API
+    target_variable: Not applicable (Rule-based automation)
+    features:
+      - Auto-timestamp extraction
+      - Audio cross-fading
+      - Dynamic video rendering
+    preprocessing:
+      - Sanitize user prompt inputs
+      - Normalize retrieved audio levels
+      - Transcode all media to a standard format prior to editing
+    modeling:
+      - Spacy for NLP entity extraction in music titles
+    evaluation_metrics:
+      - Processing pipeline time
+      - API response latency
+    validation_strategy: Extensive manual QA across 50 different genres of music
+    explainability: All steps in the timeline creation are printed to screen for debugging and human verification.
+    deployment: Deployed as a containerized Streamlit Web App on Streamlit Community Cloud.
+    risks:
+      - Rate-limiting by YouTube API
+      - High memory consumption during render
+    ethics:
+      - Strict filtering to ignore copyrighted material not licensed for remixing
+    open_resources:
+      - label: FFmpeg Documentation
+        url: https://ffmpeg.org/documentation.html
+      - label: Pydub GitHub
+        url: https://github.com/jiaaro/pydub
 
 # endregion

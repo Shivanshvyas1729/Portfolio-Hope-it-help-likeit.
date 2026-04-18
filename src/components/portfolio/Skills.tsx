@@ -1,9 +1,12 @@
-import { portfolioData, hasContent } from "@/data/portfolioData";
+import { portfolioData as initialData, hasContent } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import { motion } from "framer-motion";
 
 const Skills = () => {
-  const { categories } = portfolioData.skills;
+  const skills = useCMSData(d => d.skills) || initialData.skills;
+  const categories = skills?.categories || initialData.skills.categories;
+
   if (!hasContent(categories)) return null;
 
   const isCompact = categories.length > 4;
@@ -27,7 +30,7 @@ const Skills = () => {
               <div className="glass-card-hover p-6 h-full">
                 <h4 className="font-heading font-semibold text-foreground mb-4">{cat.title}</h4>
                 <div className="flex flex-wrap gap-2">
-                  {cat.items.map((item) => (
+                  {(cat.items || []).map((item) => (
                     <motion.span
                       key={item}
                       whileHover={{ scale: 1.08 }}

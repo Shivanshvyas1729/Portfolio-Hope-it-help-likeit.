@@ -1,11 +1,11 @@
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import { Mail, Phone, Linkedin, Github, Send, Loader2, CheckCircle } from "lucide-react";
-import { useState, FormEvent, useRef } from "react";
-import emailjs from "@emailjs/browser";
+import { useState, FormEvent, useRef, useMemo } from "react";
 
 const Contact = () => {
-  const { personal } = portfolioData;
+  const personal = useCMSData(d => d.personal) || initialData.personal;
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const formRef = useRef<HTMLFormElement>(null);
@@ -39,12 +39,15 @@ const Contact = () => {
     }
   };
 
-  const links = [
-    personal.email && { icon: Mail, label: personal.email, href: `mailto:${personal.email}` },
-    personal.phone && { icon: Phone, label: personal.phone, href: `tel:${personal.phone}` },
-    personal.linkedin && { icon: Linkedin, label: "LinkedIn", href: personal.linkedin },
-    personal.github && { icon: Github, label: "GitHub", href: personal.github },
-  ].filter(Boolean) as { icon: typeof Mail; label: string; href: string }[];
+  const links = useMemo(() => {
+    const p = personal || initialData.personal;
+    return [
+      p.email && { icon: Mail, label: p.email, href: `mailto:${p.email}` },
+      p.phone && { icon: Phone, label: p.phone, href: `tel:${p.phone}` },
+      p.linkedin && { icon: Linkedin, label: "LinkedIn", href: p.linkedin },
+      p.github && { icon: Github, label: "GitHub", href: p.github },
+    ].filter(Boolean) as { icon: typeof Mail; label: string; href: string }[];
+  }, [personal]);
 
   return (
     <section id="contact" className="section-padding">

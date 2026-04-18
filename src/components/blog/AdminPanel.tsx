@@ -187,9 +187,7 @@ export function AdminPanel({ onSuccess }: AdminPanelProps) {
 
     try {
       const { ok, data } = await apiFetch(API_ROUTES.saveBlog, {
-        password: sessionStorage.getItem("adminAuth") === "true"
-          ? import.meta.env.VITE_ADMIN_PASSWORD || "ShivaAnt"
-          : "",
+        password: sessionStorage.getItem("sitePassword") || "",
         blogData: payload,
       });
 

@@ -38,7 +38,24 @@ home:
 # endregion
 
 # region GLOBAL SETTINGS
-resourcesPassword: "ShivaAnt"
+
+# 🌟 4. Soft Premium Gold (muted, classy)
+
+# Less neon, more “premium UI” look.
+settings:
+  ropeLightColors: ["#eab308", "#67e8f9", "#6366f1", "#a855f7"]
+  ropeLightSpeed: 10
+  ropeLightThickness: 2
+  ropeLightGlowIntensity: 6
+
+  ropeLightColorLight: "#fde68a"
+  ropeLightColorDark: "#a16207"
+
+  # Global Text Hover Interaction
+textHoverColors: ["#22d3ee", "#fbbf24", "#6366f1", "#8b5cf6"]
+textTransitionSpeed: "0.8s"
+textAnimationSpeed: "4s"
+textGlowIntensity: 1.3
 # endregion
 
 # region PERSONAL
@@ -59,18 +76,15 @@ personal:
 # region HERO
 hero:
   headline:
-    - "Building Scalable"
-    - "AI Systems"
-    - "That Create"
-    - "Real Impact..."
+    - Building Scalable
+    - AI Systems
+    - That Create
+    - Real Impact...
   description: "I specialize in designing and deploying intelligent systems..."
   ctas:
-  
-    - label: "View Projects" 
-      #do not touch this link
+    - label: View Projects
       link: "#projects"
-    - label: "Contact Me"
-    #do not touch this link
+    - label: Contact Me
       link: "#contact"
 # endregion
 
@@ -127,7 +141,7 @@ skills:
         - "Deep Learning"
         - "NLP"
         - "Computer Vision"
-        
+
         - "Data Analysis"
 
     - title: "Advanced AI"
@@ -140,7 +154,7 @@ skills:
       items:
         - "Docker"
         - "Flask"
-        
+
         - "FastAPI"
         - "Git"
         - "Github"
@@ -161,36 +175,28 @@ techStack:
     - "RAG"
 
   all:
-  - "Python"
-  - "Pandas"
-  - "NumPy"
-  - "Scikit-learn"
-  - "TensorFlow"
-  - "PyTorch"
- 
-  
+    - "Python"
+    - "Pandas"
+    - "NumPy"
+    - "Scikit-learn"
+    - "TensorFlow"
+    - "PyTorch"
 
-  - "LangChain"
-  - "MLflow"
- 
+    - "LangChain"
+    - "MLflow"
 
-  - "FastAPI"
-  - "Streamlit"
+    - "FastAPI"
+    - "Streamlit"
 
-  - "Docker"
-  
+    - "Docker"
 
- 
+    - "MySQL"
+    - "MongoDB"
 
-  - "MySQL"
-  - "MongoDB"
+    - "Git"
+    - "GitHub"
 
-
-  - "Git"
-  - "GitHub"
- 
-
-  - "AWS"
+    - "AWS"
 
 # endregion
 

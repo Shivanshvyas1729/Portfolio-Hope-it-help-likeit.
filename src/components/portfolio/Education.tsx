@@ -1,9 +1,12 @@
-import { portfolioData, hasContent } from "@/data/portfolioData";
+import { portfolioData as initialData, hasContent } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import { GraduationCap } from "lucide-react";
 
 const Education = () => {
-  if (!hasContent(portfolioData.education)) return null;
+  const education = useCMSData(d => d.education) || initialData.education;
+
+  if (!hasContent(education)) return null;
 
   return (
     <section className="section-padding">
@@ -11,7 +14,7 @@ const Education = () => {
         <AnimatedSection>
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-8">Education</h2>
           <div className="grid gap-6" style={{ gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, 360px), 1fr))` }}>
-            {portfolioData.education.map((edu, i) => (
+            {(education || []).map((edu, i) => (
               <AnimatedSection key={i} delay={i * 0.1}>
                 <div className="glass-card-hover p-6">
                   <div className="flex items-start gap-4">

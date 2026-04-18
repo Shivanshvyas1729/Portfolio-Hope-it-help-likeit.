@@ -13,42 +13,44 @@ const localApiProxy = () => ({
       const url = req.originalUrl || req.url;
       if (url && url.startsWith('/api/')) {
         try {
-          const cleanUrl = url.split('?')[0];
+          const cleanUrl = url.split('?')[0].replace(/\/$/, ''); // Remove trailing slash
           const modulePath = `.${cleanUrl}.ts`;
           
-          // Try loading the API endpoint
           const module = await server.ssrLoadModule(modulePath);
           
           let body = '';
           req.on('data', (chunk: any) => { body += chunk.toString(); });
           req.on('end', async () => {
-            if (body) {
-              try { req.body = JSON.parse(body); } catch (e) { req.body = body; }
-            } else {
-              req.body = {};
-            }
+             try {
+                if (body) {
+                  try { req.body = JSON.parse(body); } catch (e) { req.body = body; }
+                } else {
+                  req.body = {};
+                }
 
-            res.status = (code: number) => {
-              res.statusCode = code;
-              return res;
-            };
-            res.json = (data: any) => {
-              res.setHeader('Content-Type', 'application/json');
-              res.end(JSON.stringify(data));
-            };
+                res.status = (code: number) => { res.statusCode = code; return res; };
+                res.json = (data: any) => {
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify(data));
+                };
 
-            try {
-              await module.default(req, res);
-            } catch (handlerError) {
-              console.error("[Local API Proxy] Handler Error:", handlerError);
-              res.status(500).json({ error: "Internal Server Error in Local API Proxy" });
-            }
+                await module.default(req, res);
+             } catch (error: any) {
+                console.error(`[Local API Proxy] Error in ${modulePath}:`, error);
+                res.setHeader('Content-Type', 'application/json');
+                res.statusCode = 500;
+                res.end(JSON.stringify({ 
+                  success: false, 
+                  error: "Internal Server Error in Local API Proxy",
+                  message: error.message 
+                }));
+             }
           });
         } catch (e) {
-          console.error('[Local API Proxy] Route not found or error:', e);
+          console.error('[Local API Proxy] Route not found or load error:', e);
           res.statusCode = 404;
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify({ error: "API route not found natively or failed to load" }));
+          res.end(JSON.stringify({ success: false, error: "API route not found or failed to load" }));
         }
       } else {
         next();

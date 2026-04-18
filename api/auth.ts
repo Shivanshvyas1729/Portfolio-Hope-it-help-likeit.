@@ -12,22 +12,25 @@ export default async function handler(req: any, res: any) {
   let role = null;
 
   if (type === 'admin') {
-    // If ADMIN_USERNAME is defined, check both. Otherwise, just check password.
     if (process.env.ADMIN_USERNAME) {
       if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
         role = 'admin';
       }
     } else {
-      if (password === process.env.ADMIN_PASSWORD || password === process.env.VITE_ADMIN_PASSWORD) {
+      if (password === process.env.ADMIN_PASSWORD) {
         role = 'admin';
       }
     }
   } else if (type === 'blog') {
-    if (password === process.env.BLOG_PASSWORD || password === process.env.VITE_ADMIN_PASSWORD) {
+    if (password === process.env.BLOG_PASSWORD || password === process.env.ADMIN_PASSWORD) {
       role = 'blog';
     }
+  } else if (type === 'editor') {
+    if (password === process.env.EDITOR_PASSWORD || password === process.env.ADMIN_PASSWORD) {
+      role = 'editor';
+    }
   } else if (type === 'secret') {
-    if (password === process.env.SECRET_PASSWORD || password === process.env.VITE_ADMIN_PASSWORD || password === process.env.ADMIN_PASSWORD) {
+    if (password === process.env.SECRET_PASSWORD || password === process.env.ADMIN_PASSWORD) {
       role = 'secret';
     }
   }

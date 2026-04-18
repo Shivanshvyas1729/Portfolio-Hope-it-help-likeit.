@@ -1,7 +1,8 @@
 import { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text, Float } from "@react-three/drei";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import * as THREE from "three";
 import AnimatedSection from "./AnimatedSection";
 import { Code2, Cpu, Database, Cloud, Layers, Terminal } from "lucide-react";
@@ -115,8 +116,8 @@ const RobotAvatar = () => {
 };
 
 const Scene = () => {
-  const { techStack } = portfolioData;
-  const tools = techStack.featured;
+  const techStack = useCMSData(d => d.techStack) || initialData.techStack;
+  const tools = techStack?.featured || initialData.techStack.featured;
 
   const positions = useMemo(() => {
     const count = tools.length;
@@ -163,8 +164,8 @@ const getTechIcon = (tech: string) => {
 };
 
 const TechSphere = () => {
-  const { techStack } = portfolioData;
-  const allTools = techStack.all;
+  const techStack = useCMSData(d => d.techStack) || initialData.techStack;
+  const allTools = techStack?.all || initialData.techStack.all;
   
   const isDense = allTools.length > 12;
   const gridClass = isDense 

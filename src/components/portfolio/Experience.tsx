@@ -1,9 +1,11 @@
-import { portfolioData, hasContent } from "@/data/portfolioData";
+import { portfolioData as initialData, hasContent } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import AnimatedSection from "./AnimatedSection";
 import { Briefcase } from "lucide-react";
 
 const Experience = () => {
-  const { experience } = portfolioData;
+  const experience = useCMSData(d => d.experience) || initialData.experience;
+  
   if (!hasContent(experience)) return null;
 
   const cols = experience.length === 1 ? "max-w-lg mx-auto" : "";
@@ -17,7 +19,7 @@ const Experience = () => {
             className={cols || "grid gap-6"}
             style={!cols ? { gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, 340px), 1fr))` } : undefined}
           >
-            {experience.map((exp, i) => (
+            {(experience || []).map((exp, i) => (
               <AnimatedSection key={i} delay={i * 0.1}>
                 <div className="glass-card-hover p-6">
                   <div className="flex items-start gap-4">

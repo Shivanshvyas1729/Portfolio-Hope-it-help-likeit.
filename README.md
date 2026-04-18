@@ -1,40 +1,22 @@
-# 🚀 Shivansh Portfolio — Antigravity CMS
+# 🚀 Shivansh Portfolio — Unified CMS Matrix
 
-A production-grade, fully autonomous **React + Vite portfolio** backed by a **headless Git-based CMS** running on both **Vercel** and **Netlify**. Every blog post you write from the admin panel is committed directly to GitHub — no database, no backend server, just serverless functions and YAML files.
+A production-grade, fully autonomous **React + Vite portfolio** backed by a **Unified Matrix CMS** running on both **Vercel** and **Netlify**. This system features an environment-aware synchronization layer that manages local and cloud deployments with full audit logging.
 
 ---
-bash scripts/should-deploy.sh-> to turn of auto deploy
-## ✨ Features
+
+## ✨ Advanced Features
 
 | Feature | Description |
 |---|---|
-| 🗂 **Git-Based Headless CMS** | Blog posts are stored as YAML in the repo. The `/api/save-blog` and `/api/delete-blog` routes commit directly to GitHub via Octokit |
-| 🤖 **Dual Admin Interfaces** | A draggable + resizable **Admin Matrix Form** and a floating **CMS Chatbot Terminal** — both gated behind session auth |
-| ⭐ **Featured & Draft System** | Featured posts get a gold star badge and appear in the filter bar. Draft posts are hidden from public, visible only to admins |
-| 🗑 **In-Card Delete** | Inline confirmation overlay on every card (admin-only), commits a deletion to GitHub with `[skip ci]` |
-| ⚡ **Optimistic UI** | Posts appear instantly after submit — no page reload needed |
-| 🔍 **Smart Search Pipeline** | Weighted scoring: Title `×3`, Tags `×2`, Content `×1` — all inside React `useMemo` |
-| 🚫 **Rate Limiting** | Enforces a 30-second cooldown between commits using the GitHub Commits API |
-| 🔁 **Cross-Platform API** | Identical `/api/*` routes work on **Vercel natively** and **Netlify via redirects** — zero frontend changes needed |
-| 🚢 **Smart Deploy Skip** | `scripts/should-deploy.sh` tells Vercel to skip rebuilds for CMS-only commits (e.g. blog.yaml changes with `[skip ci]`) |
-| 🌙 **Zero-Flicker Dark Mode** | `localStorage` + `prefers-color-scheme` via React Context, resolved before first paint |
-| 📐 **Draggable + Resizable Panel** | Admin form uses native Pointer Events with direct DOM mutation — butter-smooth, zero React re-renders during drag |
-
----
-
-## 🛠 Tech Stack
-
-| Layer | Technology |
-|---|---|
-| **Framework** | React 18 + Vite 5 |
-| **Styling** | Tailwind CSS v3 + Framer Motion |
-| **Serverless (Vercel)** | `@vercel/node` + `/api` directory |
-| **Serverless (Netlify)** | `@netlify/functions` + `/netlify/functions` directory |
-| **GitHub Integration** | `@octokit/rest` |
-| **Data Layer** | `blog.yaml` + `portfolio.yaml` (no database) |
-| **Markdown** | `react-markdown` + `remark-gfm` |
-| **AI Chatbot** | Google Gemini API (via `chatService.ts`) |
-| **Type Safety** | TypeScript 5 throughout |
+| 🗂 **Unified Matrix CMS** | A single, powerful dashboard to manage Portfolio sections and Project entries from a central interface. |
+| 🛡️ **Audit Logging System** | Real-time tracking of every action (Fetch, Save, Delete) with a dedicated "Logs" tab for performance and security monitoring. |
+| 🏠 **Local-First Sync** | Intelligently detects local development environments and saves directly to the filesystem, bypassing the network for zero-latency editing. |
+| ☁️ **Cloud Commit Layer** | Production edits are committed directly to GitHub via the Octokit pipeline with SHA-collision protection. |
+| 📐 **Dynamic Workspace** | Fully resizable and maximizable dashboard with persistent layouts stored in your local session. |
+| 🚦 **Environment Awareness** | Automatically switches between Local and Cloud modes based on hostname detection, with a manual override toggle. |
+| 🎭 **Aesthetic Engine** | Site-wide fluid text hover interactions and animated gradients, fully orchestrated via `portfolio.yaml`. |
+| 🎬 **Auto-Scroll Reveal** | Global performance-optimized Intersection Observer system for directional text reveal animations. |
+| 🧶 **Edge Rope Lights** | Premium viewport-framing animated lighting effect with theme-aware color shifting and glow. |
 
 ---
 
@@ -42,155 +24,88 @@ bash scripts/should-deploy.sh-> to turn of auto deploy
 
 ```
 📦 shivansh-ai-forge
-┣ 📂 api/                          # Vercel serverless adapters (thin shims)
-┃ ┣ 📜 save-blog.ts                → calls coreSaveBlog()
-┃ ┗ 📜 delete-blog.ts              → calls coreDeleteBlog()
-┣ 📂 netlify/functions/            # Netlify serverless adapters (identical contract)
-┃ ┣ 📜 save-blog.ts                → calls coreSaveBlog()
-┃ ┗ 📜 delete-blog.ts              → calls coreDeleteBlog()
-┣ 📂 scripts/
-┃ ┗ 📜 should-deploy.sh            # Vercel ignored build step — skips [skip ci] commits
+┣ 📂 api/                          # Platform-agnostic serverless API routes
+┃ ┣ 📜 cms-load.ts                 → Fetches YAML (Local FS or GitHub)
+┃ ┣ 📜 cms-save.ts                 → Persists YAML (Filesystem rename or Git Commit)
+┃ ┣ 📜 cms-history.ts              → Retrieves Git commit logs
+┃ ┣ 📜 auth.ts                     → Role-based session management
 ┣ 📂 src/
 ┃ ┣ 📂 components/
-┃ ┃ ┣ 📂 blog/                     # Admin Panel, Chatbot, Filter, BlogCard, BlogModal
-┃ ┃ ┣ 📂 portfolio/                # Navbar, ChatAssistant, Projects, TechSphere, etc.
-┃ ┃ ┗ 📂 ui/                       # Shadcn/ui primitives
+┃ ┃ ┗ 📂 cms/                      → The Unified Admin Dashboard & Schema forms
 ┃ ┣ 📂 data/
-┃ ┃ ┣ 📜 blog.yaml                 # CMS database (committed by serverless functions)
-┃ ┃ ┗ 📜 portfolio.yaml            # Portfolio content — projects, skills, experience
+┃ ┃ ┣ 📜 portfolio.yaml            → Core portfolio content
+┃ ┃ ┗ 📜 projects.yaml             → Project entries
+┃ ┣ 📂 context/
+┃ ┃ ┗ 📜 CMSContext.tsx            → Central state: Environment, Mode, and Audit Logs
 ┃ ┣ 📂 lib/
-┃ ┃ ┣ 📜 blog-core.ts              # Shared CMS logic (GitHub, YAML, rate-limit, auth)
-┃ ┃ ┗ 📜 apiClient.ts              # Platform-aware fetch utility + route constants
-┃ ┣ 📂 hooks/                      # useTheme, useProjectFilter, etc.
-┃ ┣ 📂 pages/                      # Blog.tsx, AllProjects.tsx, Index.tsx
-┃ ┣ 📂 services/                   # chatService.ts (Gemini AI integration)
-┃ ┗ 📜 App.tsx                     # Root routing + context boundaries
-┣ 📜 vercel.json                   # Vercel routing + ignored build step
-┣ 📜 netlify.toml                  # Netlify routing — maps /api/* to /.netlify/functions/*
-┗ 📜 vite.config.ts                # Vite config + localApiProxy plugin (local dev)
+┃ ┃ ┣ 📜 cms-core.ts               → The "Backend Core": Logic for safe file writes & Git sync
+┃ ┃ ┗ 📜 logger.ts                 → Stateful Audit Logger with subscription support
 ```
 
 ---
 
-## ⚙️ Installation & Setup
+## 🎨 Aesthetic & Interaction Control
 
-### 1. Clone & Install
+The entire visual feel of the portfolio is managed via `src/data/portfolio.yaml` (Global Settings section).
+
+### Text Hover Interaction
+- `textHoverColors`: List of colors for hover state (supports animated gradients).
+- `textTransitionSpeed`: Global enter/exit transition timing.
+- `textAnimationSpeed`: Cycle speed for multi-color gradients.
+- `textGlowIntensity`: Strength of the neon glow on hover.
+
+### Edge Rope Lights
+- `ropeLightColors`: Primary colors for the viewport frame lights.
+- `ropeLightSpeed`: Speed of the light flow animation.
+- `ropeLightThickness`: Thickness of the light strip.
+- `ropeLightGlowIntensity`: Atmosphere glow intensity.
+
+---
+
+## ⚙️ Setup & Configuration
+
+### 1. Environment Variables
+Create a `.env` file in the project root with the following keys:
 
 ```bash
-git clone https://github.com/Shivanshvyas1729/My_personal_portfolio.git
-cd My_personal_portfolio
-npm install
+# === CMS & PRODUCTION AUTH ===
+GITHUB_TOKEN=github_pat_...        # Required for production commits (GitHub Mode)
+ADMIN_PASSWORD=your_password       # Master admin toggle for Unified Dashboard
+EDITOR_PASSWORD=your_password      # Access to YAML content editing
+BLOG_PASSWORD=your_password        # Access to Blog CMS
+SECRET_PASSWORD=your_password      # Access to restricted resources
+
+# === COMMUNICATIONS (EmailJS) ===
+EMAILJS_SERVICE_ID=your_id         # Service ID from EmailJS dashboard
+EMAILJS_TEMPLATE_ID=your_template  # Template ID for contact forms
+EMAIL_API_KEY=your_public_key      # Public Key from EmailJS account
 ```
 
-### 2. Configure Environment Variables
-
-Create a `.env` file in the project root:
-
-```bash
-# Server-side only (Vercel / Netlify functions)
-GITHUB_TOKEN=github_pat_...        # Fine-grained PAT with Repo Read+Write
-ADMIN_PASSWORD=your_secure_password
-
-# Frontend-accessible (Vite exposes VITE_ prefix)
-VITE_ADMIN_PASSWORD=your_secure_password   # Must match ADMIN_PASSWORD
-```
-
-> ⚠️ `.env` is in `.gitignore`. **Never commit secrets to the repository.**
-
-### 3. Run Locally
-
-The project ships with a built-in **Vite API proxy plugin** (`localApiProxy`) that intercepts all `/api/*` requests and executes your serverless functions directly inside the Vite dev server — **no Vercel CLI or Netlify CLI required**.
+### 2. Local Development
+Run the Vite development server. The CMS will automatically detect `localhost` and enable **Local Mode**.
 
 ```bash
 npm run dev
 ```
 
-Your app will be live at `http://localhost:8080` with full API support.
+### 3. Production Deployment (Vercel)
+Ensure `GITHUB_TOKEN` is set in your Vercel project settings. The CMS will use **Cloud Mode** to commit changes directly to your repository.
 
 ---
 
-## 🔐 Environment Variable Reference
+## 🛠 Troubleshooting
 
-| Variable | Where Used | Purpose |
-|---|---|---|
-| `GITHUB_TOKEN` | Server (Vercel/Netlify) | Octokit auth — Read + Write access to repo |
-| `ADMIN_PASSWORD` | Server (Vercel/Netlify) | Backend password verification |
-| `VITE_ADMIN_PASSWORD` | Frontend (Vite) | Used by AdminPanel to send auth with requests |
+### "Update Section" Not Persisting
+- **Check Audit Logs**: Open the "Logs" tab in the CMS. It will show the exact failure (e.g., "Conflict Detected" or "Path Access Denied").
+- **Local Mode**: Ensure you are running on `localhost:8080` (or your configured port). Writing to the local filesystem only works when the development server is active.
+- **GitHub Mode**: Verify your `GITHUB_TOKEN` has `Contents: Read/Write` permissions for the repository.
 
----
-
-## 🌐 Deploying to Vercel
-
-1. Connect repository to [Vercel Dashboard](https://vercel.com/dashboard)
-2. **Settings → Environment Variables → Add:**
-   - `GITHUB_TOKEN`
-   - `ADMIN_PASSWORD`
-   - `VITE_ADMIN_PASSWORD`
-3. Build command: `npm run build` | Output: `dist`
-4. CMS commits (`[skip ci]`) are automatically ignored by `scripts/should-deploy.sh`
-
----
-
-## 🌐 Deploying to Netlify
-
-1. Connect repository to [Netlify Dashboard](https://app.netlify.com/)
-2. **Site Settings → Environment Variables → Add:**
-   - `GITHUB_TOKEN`
-   - `ADMIN_PASSWORD`
-   - `VITE_ADMIN_PASSWORD`
-3. Build command: `npm run build` | Publish directory: `dist`
-4. `netlify.toml` is auto-detected — no manual config needed
-
-> **How it works:** `netlify.toml` redirects `/api/save-blog` → `/.netlify/functions/save-blog`, so your frontend uses identical `/api/*` URLs on both platforms.
-
----
-
-## 🧠 CMS Flow
-
-```
-Admin unlocks session (padlock icon, bottom-left)
-  → Enters password → POST /api/save-blog (auth ping)
-  → 400 response = auth OK (no blog data provided)
-
-Admin submits post (Form or Chatbot):
-  → POST /api/save-blog or /api/delete-blog
-  → blog-core.ts: auth → rate-limit → fetchYaml → parse → mutate → commit
-  → GitHub commit with [skip ci] → no rebuild triggered
-  → Optimistic UI update in React state
-```
-
----
-
-## 👨‍💻 Admin Usage Guide
-
-1. Go to `/blog` in your browser
-2. Click the 🔒 padlock icon (bottom-left corner)
-3. Enter your `ADMIN_PASSWORD`
-4. Two admin tools appear:
-   - **Admin Matrix Panel** — Draggable + resizable floating form. Grab the header to move it, drag edges/corners to resize.
-   - **CMS Chatbot** — Floating bot icon (bottom-right). Step-by-step guided post creation.
-5. Each post card now shows a 🗑 delete button (admin-only) with an in-card confirmation overlay
-6. **Featured** ⭐ — Post gets a gold badge and appears in the "★ Featured" filter
-7. **Draft** 🔒 — Post is hidden from public, visible only when admin is logged in
+### Hydration Mismatch Warnings
+- The CMS uses a hydration-safe initialization pattern in `CMSContext.tsx`. If you see warnings, ensure you haven't manually modified state initialization outside of `useEffect`.
 
 ---
 
 ## 🔒 Security Posture
-
-- Environment secrets are **never exposed to the browser** — `GITHUB_TOKEN` and `ADMIN_PASSWORD` live only in serverless function scope
-- `VITE_ADMIN_PASSWORD` is only used to form the request body — the real verification happens server-side
-- Admin session uses `sessionStorage` with a 60-minute expiry timeout
-- All API routes return clean JSON errors — no stack traces exposed to the client
-- `blog.yaml` is committed via Octokit with SHA-collision protection — concurrent writes are safely rejected
-
----
-
-## 🔧 Key Scripts
-
-```bash
-npm run dev        # Start local dev server (port 8080) with built-in API proxy
-npm run build      # Production build → dist/
-npm run preview    # Preview production build locally
-npm run test       # Run Vitest unit tests
-npm run lint       # ESLint check
-```
+- **Path Isolation**: The CMS is strictly locked to `src/data/`. Any attempt to write outside this directory is blocked by the backend core.
+- **Atomic Writes**: Local saves use a `.tmp` and `.bak` rotation logic to prevent data corruption during power loss or server resets.
+- **SHA Verification**: Every GitHub commit verifies the latest SHA to prevent overwriting changes made by other team members.

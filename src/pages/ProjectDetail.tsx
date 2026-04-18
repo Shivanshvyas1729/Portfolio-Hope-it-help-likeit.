@@ -1,15 +1,17 @@
 import { useParams, Link } from "react-router-dom";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
 import Navbar from "@/components/portfolio/Navbar";
 import Footer from "@/components/portfolio/Footer";
 import SEO from "@/components/portfolio/SEO";
 import { ArrowLeft, Github, ExternalLink, Play, Lock } from "lucide-react";
 import { useState } from "react";
 import { ResourcesModal } from "@/components/portfolio/ResourcesModal";
+import { useCMSData } from "@/context/CMSContext";
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const project = portfolioData.projects.find((p) => p.id === Number(id));
+  const cmsProjects = useCMSData(d => d.projects) || initialData.projects;
+  const project = cmsProjects.find((p) => p.id === Number(id));
   const [activeMedia, setActiveMedia] = useState(0);
 
   if (!project) {

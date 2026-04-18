@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, FileText, Sun, Moon } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@/hooks/useTheme";
 
@@ -22,8 +23,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme, setTheme } = useTheme();
-  const resumeUrl = portfolioData?.resume?.url || "";
 
+  // Selector-based data consumption
+  const personal = useCMSData(d => d.personal) || initialData.personal;
+  const resume = useCMSData(d => d.resume) || initialData.resume;
+  
+  const resumeUrl = resume?.url || "";
   const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   useEffect(() => {
@@ -70,7 +75,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-4">
         <button onClick={() => handleClick("#home")} className="font-heading text-xl font-bold gradient-text">
-          {portfolioData.personal.name.split(" ")[0]}
+          {(personal?.name || initialData.personal.name).split(" ")[0]}
           <span className="text-foreground">.</span>
         </button>
 

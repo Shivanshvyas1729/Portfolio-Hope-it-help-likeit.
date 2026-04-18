@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Lock, Unlock, Loader2, ShieldCheck, Key } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { UnifiedAdminDashboard } from "../cms/UnifiedAdminDashboard";
 
 interface AdminAuthProps {
   isAdmin: boolean;
@@ -15,9 +16,9 @@ export function AdminAuth({ isAdmin, setIsAdmin }: AdminAuthProps) {
   const [success, setSuccess] = useState(false);
   const { login, logout, hasAccess } = useAuth();
 
-  // Sync isAdmin with Context state
+  // Sync isAdmin with Context state (include editor role logic if desired, but we stick to AdminAuthProps for compatibility)
   useEffect(() => {
-    setIsAdmin(hasAccess("admin"));
+    setIsAdmin(hasAccess("admin") || hasAccess("editor"));
   }, [hasAccess, setIsAdmin]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -25,9 +26,17 @@ export function AdminAuth({ isAdmin, setIsAdmin }: AdminAuthProps) {
     setLoading(true);
     setError("");
 
-    // Pass empty string as username so server uses password-only check
-    const success = await login("admin", password, "");
-    if (success) {
+    // Pass empty string as username so server uses password-only check. 
+    // We try admin first, if it fails backend doesn't care if we just fall back, but ideally we check editor too.
+    // For simplicity, we just send "editor" or "admin" based on the password if they match.
+    // Since our backend checks if type === 'admin', we can just fire two requests or let the backend do it.
+    // Actually, we'll try admin login. If failed, try editor.
+    let successLogin = await login("admin", password, "");
+    if (!successLogin) {
+      successLogin = await login("editor", password, "");
+    }
+    
+    if (successLogin) {
       setSuccess(true);
       setPassword("");
       setTimeout(() => {
@@ -116,6 +125,9 @@ export function AdminAuth({ isAdmin, setIsAdmin }: AdminAuthProps) {
           )}
         </div>
       )}
+
+      {/* Global Unified Dashboard Overlay for Authorized Users */}
+      {isAdmin && <UnifiedAdminDashboard />}
     </>
   );
 }

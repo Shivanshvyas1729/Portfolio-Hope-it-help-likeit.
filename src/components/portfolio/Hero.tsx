@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
+import { useCMSData } from "@/context/CMSContext";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import defaultProfileImg from "@/assets/profile-placeholder.jpg";
 
 const Hero = () => {
-  const { hero, personal, stats } = portfolioData;
+  const hero = useCMSData(d => d.hero) || initialData.hero;
+  const personal = useCMSData(d => d.personal) || initialData.personal;
+  const stats = useCMSData(d => d.stats) || initialData.stats;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center particle-bg overflow-hidden">
-      {/* Ambient glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/8 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 pt-24 pb-12">
+      <div className="container mx-auto px-4 pt-24 pb-12 relative z-10">
         <div className="grid md:grid-cols-[1fr,auto] gap-12 items-center">
         <div className="max-w-3xl">
           <motion.div
@@ -21,11 +20,11 @@ const Hero = () => {
             transition={{ delay: 0.2 }}
             className="inline-block mb-6 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-medium"
           >
-            {personal.title}
+            {personal?.title || initialData.personal.title}
           </motion.div>
 
           <div className="mb-6">
-            {hero.headline.map((line, i) => (
+            {(hero?.headline || initialData.hero.headline).map((line, i) => (
               <motion.h1
                 key={i}
                 initial={{ opacity: 0, x: -40 }}
@@ -46,7 +45,7 @@ const Hero = () => {
             transition={{ delay: 0.8 }}
             className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-8 leading-relaxed"
           >
-            {hero.description}
+            {hero?.description || initialData.hero.description}
           </motion.p>
 
           <motion.div
@@ -55,7 +54,7 @@ const Hero = () => {
             transition={{ delay: 1 }}
             className="flex flex-wrap gap-4 mb-12"
           >
-            {hero.ctas.map((cta, i) => (
+            {(hero?.ctas || initialData.hero.ctas).map((cta, i) => (
               <a
                 key={cta.label}
                 href={cta.link}
@@ -78,12 +77,12 @@ const Hero = () => {
             className="flex gap-8"
           >
             <div>
-              <span className="text-3xl font-heading font-bold gradient-text">{stats.projectsCount}+</span>
+              <span className="text-3xl font-heading font-bold gradient-text">{(stats?.projectsCount || initialData.stats.projectsCount)}+</span>
               <p className="text-muted-foreground text-sm mt-1">Projects</p>
             </div>
             <div className="w-px bg-border" />
             <div>
-              <span className="text-3xl font-heading font-bold gradient-text">{stats.experienceCount}+</span>
+              <span className="text-3xl font-heading font-bold gradient-text">{(stats?.experienceCount || initialData.stats.experienceCount)}+</span>
               <p className="text-muted-foreground text-sm mt-1">Years Learning</p>
             </div>
           </motion.div>
@@ -94,17 +93,17 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className={`hidden md:block ${personal.profileImage.position === 'left' ? 'order-first' : 'order-last'}`}
+          className={`hidden md:block ${(personal?.profileImage?.position || 'right') === 'left' ? 'order-first' : 'order-last'}`}
         >
           <div className="relative w-72 h-72 lg:w-80 lg:h-80">
             <div className="absolute inset-0 rounded-full bg-primary/20 blur-3xl animate-glow-pulse" />
             <img
               src={
-                !personal.profileImage.value || personal.profileImage.value.includes('profile-placeholder')
+                !personal?.profileImage?.value || personal.profileImage.value.includes('profile-placeholder')
                   ? defaultProfileImg
                   : personal.profileImage.value
               }
-              alt={personal.name}
+              alt={personal?.name || initialData.personal.name}
               width={320}
               height={320}
               className="relative rounded-2xl object-cover w-full h-full glow-border shadow-[0_0_30px_rgba(59,130,246,0.2)]"
@@ -117,7 +116,7 @@ const Hero = () => {
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground z-20"
       >
         <ChevronDown size={24} />
       </motion.div>

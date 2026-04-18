@@ -1,13 +1,15 @@
-import { portfolioData } from "@/data/portfolioData";
+import { portfolioData as initialData } from "@/data/portfolioData";
 import { useProjectFilter } from "@/hooks/useProjectFilter";
 import ProjectCard from "@/components/portfolio/ProjectCard";
 import Navbar from "@/components/portfolio/Navbar";
 import Footer from "@/components/portfolio/Footer";
 import SEO from "@/components/portfolio/SEO";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCMSData } from "@/context/CMSContext";
 
 const AllProjects = () => {
-  const { categories, selectedCategory, setSelectedCategory, filteredProjects, counts } = useProjectFilter(portfolioData.projects);
+  const cmsProjects = useCMSData(d => d.projects) || initialData.projects;
+  const { categories, selectedCategory, setSelectedCategory, filteredProjects, counts } = useProjectFilter(cmsProjects);
 
   return (
     <div className="min-h-screen flex flex-col">
