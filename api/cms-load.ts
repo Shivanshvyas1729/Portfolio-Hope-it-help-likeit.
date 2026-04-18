@@ -1,20 +1,32 @@
-import { coreGetLatestData } from "../src/lib/cms-core.js";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-export default async function handler(req: any, res: any) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
+    const { coreGetLatestData } = await import("./_lib/cms-core.js");
 
-  const { filePath } = req.query;
+    if (req.method !== "GET") {
+      return res.status(405).json({ message: "Method Not Allowed" });
+    }
 
-  if (!filePath) {
-    return res.status(400).json({ 
+    const { filePath } = req.query;
+
+    if (!filePath || typeof filePath !== "string") {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Missing required query param: filePath"
+      });
+    }
+
+    const result = await coreGetLatestData(filePath);
+
+    return res.status(result.success ? 200 : (result.code || 500)).json(result);
+  } catch (err: any) {
+    console.error("CRITICAL ERROR in cms-load:", err);
+    return res.status(500).json({ 
       success: false, 
-      error: "Missing required query param: filePath"
+      error: "Critical server error inside cms-load", 
+      details: err.message,
+      stack: err.stack 
     });
   }
-
-  const result = await coreGetLatestData(filePath);
-
-  return res.status(result.success ? 200 : (result.code || 500)).json(result);
 }

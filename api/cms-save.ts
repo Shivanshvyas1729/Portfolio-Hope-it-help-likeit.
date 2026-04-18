@@ -1,28 +1,40 @@
-import { coreUpdateYamlSection } from "../src/lib/cms-core.js";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-export default async function handler(req: any, res: any) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method Not Allowed" });
-  }
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
+    const { coreUpdateYamlSection } = await import("./_lib/cms-core.js");
 
-  const { filePath, sectionKey, newData, providedSha, isSafeMode, role } = req.body;
+    if (req.method !== "POST") {
+      return res.status(405).json({ message: "Method Not Allowed" });
+    }
 
-  if (!filePath || !sectionKey || !newData) {
-    return res.status(400).json({ 
+    const { filePath, sectionKey, newData, providedSha, isSafeMode, role } = req.body;
+
+    if (!filePath || !sectionKey || !newData) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "Missing required fields: filePath, sectionKey, newData",
+        code: 400 
+      });
+    }
+
+    const result = await coreUpdateYamlSection(
+      role as any,
+      filePath,
+      sectionKey,
+      newData,
+      providedSha,
+      !!isSafeMode
+    );
+
+    return res.status(result.success ? 200 : (result.code || 500)).json(result);
+  } catch (err: any) {
+    console.error("CRITICAL ERROR in cms-save:", err);
+    return res.status(500).json({ 
       success: false, 
-      error: "Missing required fields: filePath, sectionKey, newData",
-      code: 400 
+      error: "Critical server error inside cms-save", 
+      details: err.message,
+      stack: err.stack 
     });
   }
-
-  const result = await coreUpdateYamlSection(
-    role as any,
-    filePath,
-    sectionKey,
-    newData,
-    providedSha,
-    !!isSafeMode
-  );
-
-  return res.status(result.success ? 200 : (result.code || 500)).json(result);
 }
