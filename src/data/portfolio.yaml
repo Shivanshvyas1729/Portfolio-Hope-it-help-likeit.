@@ -52,10 +52,10 @@ settings:
   ropeLightColorDark: "#a16207"
 
   # Global Text Hover Interaction
-textHoverColors: ["#22d3ee", "#fbbf24", "#6366f1", "#8b5cf6"]
-textTransitionSpeed: "0.8s"
-textAnimationSpeed: "4s"
-textGlowIntensity: 1.3
+  textHoverColors: ["#22d3ee", "#fbbf24", "#6366f1", "#8b5cf6"]
+  textTransitionSpeed: "0.8s"
+  textAnimationSpeed: "4s"
+  textGlowIntensity: 1.3
 # endregion
 
 # region PERSONAL
